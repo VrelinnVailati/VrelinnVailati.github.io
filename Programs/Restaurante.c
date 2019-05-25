@@ -16,6 +16,7 @@ float pedirBebidas(float cuentaActual);
 float pedirPostres(float cuentaActual);
 
 void obtenerCuenta(float cuentaMesas[], int mesa);
+void cobrarCuenta(float cuenta);
 
 void main() {
     int i = 0, cond = 0, mesa=0;
@@ -44,14 +45,17 @@ void main() {
             case 2:
                 printf("PIDIENDO COMIDA\n\n");
                 printf("Ingrese la mesa para la que pedira comida: "); scanf("%d", &mesa);
-                if(comprobarMesa(mesas, mesa-1)) {
+                if(!comprobarMesa(mesas, mesa-1)) {
                     cuentaMesas[mesa-1] = pedirParaMesa(cuentaMesas[mesa-1]);
+                } else {
+                    printf("La mesa no ha sido ocupada. Recuerde que la mesa debe estar ocupada antes de pedir comida.\n");
+                    system("pause");
                 }
                 break;
             case 3:
                 printf("Ingrese la mesa para la que pedira comida: "); scanf("%d", &mesa);
                 if(!comprobarMesa(mesas, mesa-1)) {
-                    obtenerCuenta(cuentaMesas, mesa);
+                    obtenerCuenta(mesas, cuentaMesas, mesa);
                 }
                 break;
             case 0:
@@ -106,10 +110,10 @@ int imprimirMenuSopas() {
     system("cls");
 
     printf("SOPAS\n");
-    printf("1.Sopa de Tortilla\tPrecio: $40\n");
-    printf("2.Sopa de Fideo\tPrecio: $45\n");
-    printf("3.Arroz\tPrecio: $30\n");
-    printf("4.Jugo de Carne\tPrecio: $50\n");
+    printf("1.Sopa de Tortilla Precio: $40\n");
+    printf("2.Sopa de Fideo Precio: $45\n");
+    printf("3.Arroz Precio: $30\n");
+    printf("4.Jugo de Carne Precio: $50\n");
     printf("0.Regresar al menu de comida.\n\n");
 
     printf("Ingrese su seleccion: "); scanf("%d", &seleccion);
@@ -171,7 +175,7 @@ float pedirParaMesa(float cuentaActual) {
     int cond=0;
     do {
         cond = imprimirMenuComida();
-        switch(imprimirMenuComida()) {
+        switch(cond) {
             case 1:
                 cuentaActual = pedirPrimerTiempo(cuentaActual);
                 break;
@@ -194,6 +198,8 @@ float pedirParaMesa(float cuentaActual) {
                 break;
         }
     } while(cond);
+
+    return cuentaActual;
 }
 
 float pedirPrimerTiempo(float cuentaActual) {
@@ -213,11 +219,17 @@ float pedirPrimerTiempo(float cuentaActual) {
             case 4:
                 cuentaActual += 50;
                 break;
+            case 0:
+                printf("Volviendo al menu de comida...\n");
+                system("pause");
+                break;
             default:
                 printf("Ingrese una opcion valida.\n");
                 break;
         }
     } while(cond);
+
+    return cuentaActual;
 }
 
 float pedirSegundoTiempo(float cuentaActual) {
@@ -247,21 +259,105 @@ float pedirSegundoTiempo(float cuentaActual) {
                 break;
         }
     } while(cond);
+
+    return cuentaActual;
 }
 
 float pedirBebidas(float cuentaActual) {
+    int cond = 0;
+    do{
+        cond = imprimirMenuBebidas();
+        switch(cond) {
+            case 1:
+                cuentaActual += 20;
+                break;
+            case 2:
+                cuentaActual += 25;
+                break;
+            case 3:
+                cuentaActual += 50;
+                break;
+            case 4:
+                cuentaActual += 35;
+                break;
+            case 5:
+                cuentaActual += 40;
+                break;
+            case 0:
+                printf("Volviendo al menu de comida...\n");
+                system("pause");
+                break;
+            default:
+                printf("Ingrese una opcion valida\n");
+                system("pause");
+                break;
+        }
+    } while(cond);
 
+    return cuentaActual;
 }
 
 float pedirPostres(float cuentaActual) {
-    system("cls");
-    printf("POSTRES\n\n");
+    int cond = 0;
+    do {
+        cond = imprimirMenuPostres();
+        switch(cond) {
+            case 1:
+                cuentaActual += 100;
+                break;
+            case 2:
+                cuentaActual += 90;
+                break;
+            case 3:
+                cuentaActual += 110;
+                break;
+            case 0:
+                printf("Volviendo al menu de comida...");
+                system("pause");
+                break;
+            default:
+                printf("Ingrese una opcion valida.\n");
+                system("pause");
+                break;
+        }
+    } while(cond);
+
+    return cuentaActual;
 }
 
 int comprobarMesa(int mesas[], int mesa) {
     return !mesas[mesa];
 }
 
-void obtenerCuenta(float cuentaMesas[], int mesa) {
+void obtenerCuenta(int mesas[], float cuentaMesas[], int mesa) {
+    float cuentaMesa = 0;
+    int seleccion = 0;
+    float propina = 0;
 
+    if(mesas[mesa]) {
+        printf("Como desea agregar su propina:\n\n");
+        printf("1.Cantidad Adicional\n");
+        printf("2.Porcentaje (15%%)\n\n");
+
+        printf("Ingrese su seleccion: "); scanf("%d", &seleccion);
+        switch(seleccion) {
+            case 1:
+                printf("Ingrese la cantidad a aniadir: "); scanf("%f", &propina);
+                cuentaMesas[mesa] += propina;
+                break;
+            case 2:
+                propina = cuentaMesas[mesa] * .15;
+                cuentaMesas[mesa] += propina;
+                break;
+        }
+
+        cobrarCuenta(cuentaMesas[mesa]);
+    }
+}
+
+void cobrarCuenta(float cuenta) {
+    float pagado=0;
+    do {
+        printf("Ingrese la cantidad pagada: "); scanf("%d", &pagado);
+    } while(cuenta >= 0);
 }
