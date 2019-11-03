@@ -1,0 +1,17 @@
+body {
+    background-color: #ccc6c6;
+}
+
+.header {
+    color: #f0599a;
+    background-color: #ccc6c6;
+    font-family: 'Permanent Marker', cursive;
+}
+
+.border-5 {
+    border-width: 5px !important;
+}
+
+.mainText {
+    font-family: 'Source Sans Pro', sans-serif;
+}
