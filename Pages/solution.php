@@ -21,13 +21,14 @@
             </header>
             <h1 class="cover-heading">Programa que resuelve la Ecuación Diferencial Linear Homogénea de Segundo Grado con Coeficientes Constantes</h1>
             <div class="mx-auto">
-                <form action="Pages/initialNumbers.php" class="form-inline">
+                <form action="Pages/solution.php" class="form-inline">
                     <input type="number" class="form-control mb-2 mr-sm-2" id="firstMemberVariable" placeholder="0">
                     <label style="font-size: larger;" for="firstMemberVariable"><strong>y'' +</strong></label>
                     <input type="number" class="form-control mb-2 ml-2 mr-sm-2" id="secondMemberVariable" placeholder="0">
                     <label style="font-size: larger;" for="firstMemberVariable"><strong>y' +</strong></label>
                     <input type="number" class="form-control mb-2 ml-2 mr-sm-2" id="thirdMemberVariable" placeholder="0">
                     <label style="font-size: larger;" for="firstMemberVariable"><strong>y = 0</strong></label>
+                    <button type="submit" class="form-control ml-3 btn btn-outline-light">Resolver</button>
                 </form>
             </div>
             <footer class="mastfoot mt-auto">
