@@ -28,7 +28,6 @@
                     <label style="font-size: larger;" for="firstMemberVariable"><strong>y' +</strong></label>
                     <input type="number" class="form-control mb-2 ml-2 mr-sm-2" id="thirdMemberVariable" placeholder="0">
                     <label style="font-size: larger;" for="firstMemberVariable"><strong>y = 0</strong></label>
-                    <button type="submit" class="form-control ml-3 btn btn-outline-light">Resolver</button>
                 </form>
             </div>
             <footer class="mastfoot mt-auto">
